@@ -9,5 +9,4 @@ add_executable(untitled main.cpp
         house1.cpp
         VacuumCleaner.cpp
         VacuumCleaner.h
-        House2.cpp
-        House2.h)
+)

@@ -16,15 +16,17 @@ public:
     // Default constructor initializing all fields
     House()
     : docking_station(-1, -1), max_battery_steps(0), max_mission_steps(0), width(0), length(0) {}
+    //constructs House from the given file
+    explicit House(const std::string &file_path)
+        : docking_station(-1, -1), max_battery_steps(0), max_mission_steps(0), width(0), length(0) {
+        readFromFile(file_path);
+        parseConfig();
+        initializeMatrix();
+        //findDockingStation();
+    }
 
 
-
-
-
-
-
-
-
+/*
     static House fromFile(const std::string &file_path) {
         House house; // create an instance of House
         std::ifstream file(file_path);  // Attempt to open the file at the given file_path
@@ -32,7 +34,6 @@ public:
             // print error message :check if the file was opened successfully, if not print error message and return.
             std::cerr << "Failed to open file: " << file_path << std::endl;
             return house ;
-
         }
         std::string line;
         // Read the file line by line
@@ -73,7 +74,9 @@ public:
         }
         return house;
     }
-    void readFromFile(const string &file_path) {
+    */
+
+    void readFromFile(const std::string &file_path) {
         ifstream file(file_path);
         if (!file.is_open()) {
             throw runtime_error("Failed to open file: " + file_path);
@@ -85,7 +88,7 @@ public:
         file.close();
     }
     // Parse configuration for the max battrey steps and for the max mission steps
-    void parseConfig() {
+    void parseConfig() { // convert string>>int!!!!!!!!
         istringstream iss(layout.back());
         layout.pop_back();
         if (!(iss >> max_battery_steps >> max_mission_steps)) { // from the last line
